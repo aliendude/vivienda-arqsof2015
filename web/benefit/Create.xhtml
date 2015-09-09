@@ -15,16 +15,16 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateBenefitLabel_benefitPK_idbenefit}" for="benefitPK_idbenefit" />
-                    <h:inputText id="benefitPK_idbenefit" value="#{benefitController.selected.benefitPK.idbenefit}" title="#{bundle.CreateBenefitTitle_benefitPK_idbenefit}" required="true" requiredMessage="#{bundle.CreateBenefitRequiredMessage_benefitPK_idbenefit}"/>
+                    <h:outputLabel value="#{bundle.CreateBenefitLabel_idbenefit}" for="idbenefit" />
+                    <h:inputText id="idbenefit" value="#{benefitController.selected.idbenefit}" title="#{bundle.CreateBenefitTitle_idbenefit}" />
                     <h:outputLabel value="#{bundle.CreateBenefitLabel_benefittype}" for="benefittype" />
                     <h:inputText id="benefittype" value="#{benefitController.selected.benefittype}" title="#{bundle.CreateBenefitTitle_benefittype}" required="true" requiredMessage="#{bundle.CreateBenefitRequiredMessage_benefittype}"/>
                     <h:outputLabel value="#{bundle.CreateBenefitLabel_benefitvalue}" for="benefitvalue" />
                     <h:inputText id="benefitvalue" value="#{benefitController.selected.benefitvalue}" title="#{bundle.CreateBenefitTitle_benefitvalue}" required="true" requiredMessage="#{bundle.CreateBenefitRequiredMessage_benefitvalue}"/>
                     <h:outputLabel value="#{bundle.CreateBenefitLabel_benefitdescription}" for="benefitdescription" />
                     <h:inputTextarea rows="4" cols="30" id="benefitdescription" value="#{benefitController.selected.benefitdescription}" title="#{bundle.CreateBenefitTitle_benefitdescription}" />
-                    <h:outputLabel value="#{bundle.CreateBenefitLabel_home}" for="home" />
-                    <h:selectOneMenu id="home" value="#{benefitController.selected.home}" title="#{bundle.CreateBenefitTitle_home}" required="true" requiredMessage="#{bundle.CreateBenefitRequiredMessage_home}">
+                    <h:outputLabel value="#{bundle.CreateBenefitLabel_idhome}" for="idhome" />
+                    <h:selectOneMenu id="idhome" value="#{benefitController.selected.idhome}" title="#{bundle.CreateBenefitTitle_idhome}" required="true" requiredMessage="#{bundle.CreateBenefitRequiredMessage_idhome}">
                         <f:selectItems value="#{homeController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>

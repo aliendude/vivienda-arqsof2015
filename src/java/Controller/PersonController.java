@@ -1,8 +1,9 @@
-package Presentation.Bean;
+package Controller;
 
-import DataAccess.Entity.Home;
-import Presentation.Bean.util.JsfUtil;
-import Presentation.Bean.util.PaginationHelper;
+import DAO.PersonFacade;
+import Entity.Person;
+import Controller.util.JsfUtil;
+import Controller.util.PaginationHelper;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -17,29 +18,29 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "homeController")
+@ManagedBean(name = "personController")
 @SessionScoped
-public class HomeController implements Serializable {
+public class PersonController implements Serializable {
 
-    private Home current;
+    private Person current;
     private DataModel items = null;
     @EJB
-    private Presentation.Bean.HomeFacade ejbFacade;
+    private DAO.PersonFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public HomeController() {
+    public PersonController() {
     }
 
-    public Home getSelected() {
+    public Person getSelected() {
         if (current == null) {
-            current = new Home();
+            current = new Person();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private HomeFacade getFacade() {
+    private PersonFacade getFacade() {
         return ejbFacade;
     }
 
@@ -67,13 +68,13 @@ public class HomeController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Home) getItems().getRowData();
+        current = (Person) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Home();
+        current = new Person();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -81,7 +82,7 @@ public class HomeController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("HomeCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -90,7 +91,7 @@ public class HomeController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Home) getItems().getRowData();
+        current = (Person) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -98,7 +99,7 @@ public class HomeController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("HomeUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -107,7 +108,7 @@ public class HomeController implements Serializable {
     }
 
     public String destroy() {
-        current = (Home) getItems().getRowData();
+        current = (Person) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -131,7 +132,7 @@ public class HomeController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("HomeDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -187,16 +188,16 @@ public class HomeController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Home.class)
-    public static class HomeControllerConverter implements Converter {
+    @FacesConverter(forClass = Person.class)
+    public static class PersonControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            HomeController controller = (HomeController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "homeController");
+            PersonController controller = (PersonController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "personController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -217,11 +218,11 @@ public class HomeController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Home) {
-                Home o = (Home) object;
-                return getStringKey(o.getIdhome());
+            if (object instanceof Person) {
+                Person o = (Person) object;
+                return getStringKey(o.getIdperson());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Home.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Person.class.getName());
             }
         }
 

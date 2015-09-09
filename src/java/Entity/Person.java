@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataAccess.Entity;
+package Entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
@@ -46,7 +48,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Basic(optional = false)
     @NotNull
     @Column(name = "IDPERSON")
     private Long idperson;
@@ -100,7 +103,7 @@ public class Person implements Serializable {
     @Column(name = "E_MAIL")
     private String eMail;
     @OneToMany(mappedBy = "idperson")
-    private List<Home> homeList;
+    private Collection<Home> homeCollection;
 
     public Person() {
     }
@@ -218,12 +221,12 @@ public class Person implements Serializable {
     }
 
     @XmlTransient
-    public List<Home> getHomeList() {
-        return homeList;
+    public Collection<Home> getHomeCollection() {
+        return homeCollection;
     }
 
-    public void setHomeList(List<Home> homeList) {
-        this.homeList = homeList;
+    public void setHomeCollection(Collection<Home> homeCollection) {
+        this.homeCollection = homeCollection;
     }
 
     @Override
@@ -248,7 +251,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "DataAccess.Entity.Person[ idperson=" + idperson + " ]";
+        return "Entity.Person[ idperson=" + idperson + " ]";
     }
     
 }

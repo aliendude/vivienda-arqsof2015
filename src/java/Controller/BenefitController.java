@@ -1,8 +1,9 @@
-package Presentation.Bean;
+package Controller;
 
-import DataAccess.Entity.Benefit;
-import Presentation.Bean.util.JsfUtil;
-import Presentation.Bean.util.PaginationHelper;
+import DAO.BenefitFacade;
+import Entity.Benefit;
+import Controller.util.JsfUtil;
+import Controller.util.PaginationHelper;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -24,7 +25,7 @@ public class BenefitController implements Serializable {
     private Benefit current;
     private DataModel items = null;
     @EJB
-    private Presentation.Bean.BenefitFacade ejbFacade;
+    private DAO.BenefitFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -34,7 +35,6 @@ public class BenefitController implements Serializable {
     public Benefit getSelected() {
         if (current == null) {
             current = new Benefit();
-            current.setBenefitPK(new DataAccess.Entity.BenefitPK());
             selectedItemIndex = -1;
         }
         return current;
@@ -75,14 +75,12 @@ public class BenefitController implements Serializable {
 
     public String prepareCreate() {
         current = new Benefit();
-        current.setBenefitPK(new DataAccess.Entity.BenefitPK());
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            current.getBenefitPK().setIdhome(current.getHome().getIdhome());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BenefitCreated"));
             return prepareCreate();
@@ -100,7 +98,6 @@ public class BenefitController implements Serializable {
 
     public String update() {
         try {
-            current.getBenefitPK().setIdhome(current.getHome().getIdhome());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BenefitUpdated"));
             return "View";
@@ -194,9 +191,6 @@ public class BenefitController implements Serializable {
     @FacesConverter(forClass = Benefit.class)
     public static class BenefitControllerConverter implements Converter {
 
-        private static final String SEPARATOR = "#";
-        private static final String SEPARATOR_ESCAPED = "\\#";
-
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
@@ -207,20 +201,15 @@ public class BenefitController implements Serializable {
             return controller.ejbFacade.find(getKey(value));
         }
 
-        DataAccess.Entity.BenefitPK getKey(String value) {
-            DataAccess.Entity.BenefitPK key;
-            String values[] = value.split(SEPARATOR_ESCAPED);
-            key = new DataAccess.Entity.BenefitPK();
-            key.setIdhome(Long.parseLong(values[0]));
-            key.setIdbenefit(Long.parseLong(values[1]));
+        java.lang.Long getKey(String value) {
+            java.lang.Long key;
+            key = Long.valueOf(value);
             return key;
         }
 
-        String getStringKey(DataAccess.Entity.BenefitPK value) {
+        String getStringKey(java.lang.Long value) {
             StringBuilder sb = new StringBuilder();
-            sb.append(value.getIdhome());
-            sb.append(SEPARATOR);
-            sb.append(value.getIdbenefit());
+            sb.append(value);
             return sb.toString();
         }
 
@@ -231,7 +220,7 @@ public class BenefitController implements Serializable {
             }
             if (object instanceof Benefit) {
                 Benefit o = (Benefit) object;
-                return getStringKey(o.getBenefitPK());
+                return getStringKey(o.getIdbenefit());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Benefit.class.getName());
             }

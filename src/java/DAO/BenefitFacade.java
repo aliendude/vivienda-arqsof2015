@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Presentation.Bean;
+package DAO;
 
-import DataAccess.Entity.Home;
+import Entity.Benefit;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,8 +15,8 @@ import javax.persistence.PersistenceContext;
  * @author mac
  */
 @Stateless
-public class HomeFacade extends AbstractFacade<Home> {
-    @PersistenceContext(unitName = "ViviendaPU")
+public class BenefitFacade extends AbstractFacade<Benefit> {
+    @PersistenceContext(unitName = "Vivienda2PU")
     private EntityManager em;
 
     @Override
@@ -24,8 +24,8 @@ public class HomeFacade extends AbstractFacade<Home> {
         return em;
     }
 
-    public HomeFacade() {
-        super(Home.class);
+    public BenefitFacade() {
+        super(Benefit.class);
     }
     
 }

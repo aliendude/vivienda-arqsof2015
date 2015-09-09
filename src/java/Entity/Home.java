@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataAccess.Entity;
+package Entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -41,7 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Home implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Basic(optional = false)
     @NotNull
     @Column(name = "IDHOME")
     private Long idhome;
@@ -75,8 +78,8 @@ public class Home implements Serializable {
     @JoinColumn(name = "IDPERSON", referencedColumnName = "IDPERSON")
     @ManyToOne
     private Person idperson;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "home")
-    private List<Benefit> benefitList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idhome")
+    private Collection<Benefit> benefitCollection;
 
     public Home() {
     }
@@ -151,12 +154,12 @@ public class Home implements Serializable {
     }
 
     @XmlTransient
-    public List<Benefit> getBenefitList() {
-        return benefitList;
+    public Collection<Benefit> getBenefitCollection() {
+        return benefitCollection;
     }
 
-    public void setBenefitList(List<Benefit> benefitList) {
-        this.benefitList = benefitList;
+    public void setBenefitCollection(Collection<Benefit> benefitCollection) {
+        this.benefitCollection = benefitCollection;
     }
 
     @Override
@@ -181,7 +184,7 @@ public class Home implements Serializable {
 
     @Override
     public String toString() {
-        return "DataAccess.Entity.Home[ idhome=" + idhome + " ]";
+        return "Entity.Home[ idhome=" + idhome + " ]";
     }
     
 }

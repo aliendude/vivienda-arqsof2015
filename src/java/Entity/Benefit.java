@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DataAccess.Entity;
+package Entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -30,14 +32,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Benefit.findAll", query = "SELECT b FROM Benefit b"),
-    @NamedQuery(name = "Benefit.findByIdhome", query = "SELECT b FROM Benefit b WHERE b.benefitPK.idhome = :idhome"),
-    @NamedQuery(name = "Benefit.findByIdbenefit", query = "SELECT b FROM Benefit b WHERE b.benefitPK.idbenefit = :idbenefit"),
+    @NamedQuery(name = "Benefit.findByIdbenefit", query = "SELECT b FROM Benefit b WHERE b.idbenefit = :idbenefit"),
     @NamedQuery(name = "Benefit.findByBenefittype", query = "SELECT b FROM Benefit b WHERE b.benefittype = :benefittype"),
     @NamedQuery(name = "Benefit.findByBenefitvalue", query = "SELECT b FROM Benefit b WHERE b.benefitvalue = :benefitvalue")})
 public class Benefit implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected BenefitPK benefitPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Basic(optional = false)
+    @NotNull
+    @Column(name = "IDBENEFIT")
+    private Long idbenefit;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -52,33 +57,29 @@ public class Benefit implements Serializable {
     @Size(max = 65535)
     @Column(name = "BENEFITDESCRIPTION")
     private String benefitdescription;
-    @JoinColumn(name = "IDHOME", referencedColumnName = "IDHOME", insertable = false, updatable = false)
+    @JoinColumn(name = "IDHOME", referencedColumnName = "IDHOME")
     @ManyToOne(optional = false)
-    private Home home;
+    private Home idhome;
 
     public Benefit() {
     }
 
-    public Benefit(BenefitPK benefitPK) {
-        this.benefitPK = benefitPK;
+    public Benefit(Long idbenefit) {
+        this.idbenefit = idbenefit;
     }
 
-    public Benefit(BenefitPK benefitPK, String benefittype, BigDecimal benefitvalue) {
-        this.benefitPK = benefitPK;
+    public Benefit(Long idbenefit, String benefittype, BigDecimal benefitvalue) {
+        this.idbenefit = idbenefit;
         this.benefittype = benefittype;
         this.benefitvalue = benefitvalue;
     }
 
-    public Benefit(long idhome, long idbenefit) {
-        this.benefitPK = new BenefitPK(idhome, idbenefit);
+    public Long getIdbenefit() {
+        return idbenefit;
     }
 
-    public BenefitPK getBenefitPK() {
-        return benefitPK;
-    }
-
-    public void setBenefitPK(BenefitPK benefitPK) {
-        this.benefitPK = benefitPK;
+    public void setIdbenefit(Long idbenefit) {
+        this.idbenefit = idbenefit;
     }
 
     public String getBenefittype() {
@@ -105,18 +106,18 @@ public class Benefit implements Serializable {
         this.benefitdescription = benefitdescription;
     }
 
-    public Home getHome() {
-        return home;
+    public Home getIdhome() {
+        return idhome;
     }
 
-    public void setHome(Home home) {
-        this.home = home;
+    public void setIdhome(Home idhome) {
+        this.idhome = idhome;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (benefitPK != null ? benefitPK.hashCode() : 0);
+        hash += (idbenefit != null ? idbenefit.hashCode() : 0);
         return hash;
     }
 
@@ -127,7 +128,7 @@ public class Benefit implements Serializable {
             return false;
         }
         Benefit other = (Benefit) object;
-        if ((this.benefitPK == null && other.benefitPK != null) || (this.benefitPK != null && !this.benefitPK.equals(other.benefitPK))) {
+        if ((this.idbenefit == null && other.idbenefit != null) || (this.idbenefit != null && !this.idbenefit.equals(other.idbenefit))) {
             return false;
         }
         return true;
@@ -135,7 +136,7 @@ public class Benefit implements Serializable {
 
     @Override
     public String toString() {
-        return "DataAccess.Entity.Benefit[ benefitPK=" + benefitPK + " ]";
+        return "Entity.Benefit[ idbenefit=" + idbenefit + " ]";
     }
     
 }

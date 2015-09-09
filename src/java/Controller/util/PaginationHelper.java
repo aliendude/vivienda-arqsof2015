@@ -1,4 +1,4 @@
-package Presentation.Bean.util;
+package Controller.util;
 
 import javax.faces.model.DataModel;
 

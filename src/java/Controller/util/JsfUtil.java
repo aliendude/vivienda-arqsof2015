@@ -1,4 +1,4 @@
-package Presentation.Bean.util;
+package Controller.util;
 
 import java.util.List;
 import javax.faces.application.FacesMessage;

@@ -22,9 +22,9 @@
                     <h:dataTable value="#{benefitController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListBenefitTitle_benefitPK_idbenefit}"/>
+                                <h:outputText value="#{bundle.ListBenefitTitle_idbenefit}"/>
                             </f:facet>
-                            <h:outputText value="#{item.benefitPK.idbenefit}"/>
+                            <h:outputText value="#{item.idbenefit}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -46,9 +46,9 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListBenefitTitle_home}"/>
+                                <h:outputText value="#{bundle.ListBenefitTitle_idhome}"/>
                             </f:facet>
-                            <h:outputText value="#{item.home}"/>
+                            <h:outputText value="#{item.idhome}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

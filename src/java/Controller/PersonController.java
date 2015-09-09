@@ -1,6 +1,5 @@
 package Controller;
 
-import DAO.PersonFacade;
 import Entity.Person;
 import Controller.util.JsfUtil;
 import Controller.util.PaginationHelper;
@@ -25,7 +24,7 @@ public class PersonController implements Serializable {
     private Person current;
     private DataModel items = null;
     @EJB
-    private DAO.PersonFacade ejbFacade;
+    private Controller.PersonFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

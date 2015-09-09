@@ -1,6 +1,5 @@
 package Controller;
 
-import DAO.BenefitFacade;
 import Entity.Benefit;
 import Controller.util.JsfUtil;
 import Controller.util.PaginationHelper;
@@ -25,7 +24,7 @@ public class BenefitController implements Serializable {
     private Benefit current;
     private DataModel items = null;
     @EJB
-    private DAO.BenefitFacade ejbFacade;
+    private Controller.BenefitFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

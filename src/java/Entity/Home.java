@@ -6,10 +6,9 @@
 package Entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Collection;
+import java.math.BigInteger;
+import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +21,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -37,64 +35,43 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Home.findAll", query = "SELECT h FROM Home h"),
     @NamedQuery(name = "Home.findByIdhome", query = "SELECT h FROM Home h WHERE h.idhome = :idhome"),
-    @NamedQuery(name = "Home.findByContracttype", query = "SELECT h FROM Home h WHERE h.contracttype = :contracttype"),
     @NamedQuery(name = "Home.findByCity", query = "SELECT h FROM Home h WHERE h.city = :city"),
+    @NamedQuery(name = "Home.findByContracttype", query = "SELECT h FROM Home h WHERE h.contracttype = :contracttype"),
     @NamedQuery(name = "Home.findByHomevalue", query = "SELECT h FROM Home h WHERE h.homevalue = :homevalue")})
 public class Home implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Basic(optional = false)
-    @NotNull
+    @Basic(optional = false)
     @Column(name = "IDHOME")
     private Long idhome;
-    @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Size(min = 1, max = 65535)
-    @Column(name = "HOMETYPE")
-    private String hometype;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "CONTRACTTYPE")
-    private String contracttype;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 255)
     @Column(name = "CITY")
     private String city;
-    @Basic(optional = false)
-    @NotNull
+    @Size(max = 255)
+    @Column(name = "CONTRACTTYPE")
+    private String contracttype;
     @Lob
-    @Size(min = 1, max = 65535)
+    @Size(max = 2147483647)
     @Column(name = "HOMEADDRESS")
     private String homeaddress;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
+    @Lob
+    @Size(max = 2147483647)
+    @Column(name = "HOMETYPE")
+    private String hometype;
     @Column(name = "HOMEVALUE")
-    private BigDecimal homevalue;
+    private BigInteger homevalue;
     @JoinColumn(name = "IDPERSON", referencedColumnName = "IDPERSON")
     @ManyToOne
     private Person idperson;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idhome")
-    private Collection<Benefit> benefitCollection;
+    @OneToMany(mappedBy = "idhome")
+    private List<Benefit> benefitList;
 
     public Home() {
     }
 
     public Home(Long idhome) {
         this.idhome = idhome;
-    }
-
-    public Home(Long idhome, String hometype, String contracttype, String city, String homeaddress, BigDecimal homevalue) {
-        this.idhome = idhome;
-        this.hometype = hometype;
-        this.contracttype = contracttype;
-        this.city = city;
-        this.homeaddress = homeaddress;
-        this.homevalue = homevalue;
     }
 
     public Long getIdhome() {
@@ -105,12 +82,12 @@ public class Home implements Serializable {
         this.idhome = idhome;
     }
 
-    public String getHometype() {
-        return hometype;
+    public String getCity() {
+        return city;
     }
 
-    public void setHometype(String hometype) {
-        this.hometype = hometype;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getContracttype() {
@@ -121,14 +98,6 @@ public class Home implements Serializable {
         this.contracttype = contracttype;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getHomeaddress() {
         return homeaddress;
     }
@@ -137,11 +106,19 @@ public class Home implements Serializable {
         this.homeaddress = homeaddress;
     }
 
-    public BigDecimal getHomevalue() {
+    public String getHometype() {
+        return hometype;
+    }
+
+    public void setHometype(String hometype) {
+        this.hometype = hometype;
+    }
+
+    public BigInteger getHomevalue() {
         return homevalue;
     }
 
-    public void setHomevalue(BigDecimal homevalue) {
+    public void setHomevalue(BigInteger homevalue) {
         this.homevalue = homevalue;
     }
 
@@ -154,12 +131,12 @@ public class Home implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Benefit> getBenefitCollection() {
-        return benefitCollection;
+    public List<Benefit> getBenefitList() {
+        return benefitList;
     }
 
-    public void setBenefitCollection(Collection<Benefit> benefitCollection) {
-        this.benefitCollection = benefitCollection;
+    public void setBenefitList(List<Benefit> benefitList) {
+        this.benefitList = benefitList;
     }
 
     @Override

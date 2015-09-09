@@ -6,7 +6,7 @@
 package Entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +19,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -39,26 +38,20 @@ public class Benefit implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Basic(optional = false)
-    @NotNull
+    @Basic(optional = false)
     @Column(name = "IDBENEFIT")
     private Long idbenefit;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "BENEFITTYPE")
-    private String benefittype;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "BENEFITVALUE")
-    private BigDecimal benefitvalue;
     @Lob
-    @Size(max = 65535)
+    @Size(max = 2147483647)
     @Column(name = "BENEFITDESCRIPTION")
     private String benefitdescription;
+    @Size(max = 255)
+    @Column(name = "BENEFITTYPE")
+    private String benefittype;
+    @Column(name = "BENEFITVALUE")
+    private BigInteger benefitvalue;
     @JoinColumn(name = "IDHOME", referencedColumnName = "IDHOME")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Home idhome;
 
     public Benefit() {
@@ -66,12 +59,6 @@ public class Benefit implements Serializable {
 
     public Benefit(Long idbenefit) {
         this.idbenefit = idbenefit;
-    }
-
-    public Benefit(Long idbenefit, String benefittype, BigDecimal benefitvalue) {
-        this.idbenefit = idbenefit;
-        this.benefittype = benefittype;
-        this.benefitvalue = benefitvalue;
     }
 
     public Long getIdbenefit() {
@@ -82,6 +69,14 @@ public class Benefit implements Serializable {
         this.idbenefit = idbenefit;
     }
 
+    public String getBenefitdescription() {
+        return benefitdescription;
+    }
+
+    public void setBenefitdescription(String benefitdescription) {
+        this.benefitdescription = benefitdescription;
+    }
+
     public String getBenefittype() {
         return benefittype;
     }
@@ -90,20 +85,12 @@ public class Benefit implements Serializable {
         this.benefittype = benefittype;
     }
 
-    public BigDecimal getBenefitvalue() {
+    public BigInteger getBenefitvalue() {
         return benefitvalue;
     }
 
-    public void setBenefitvalue(BigDecimal benefitvalue) {
+    public void setBenefitvalue(BigInteger benefitvalue) {
         this.benefitvalue = benefitvalue;
-    }
-
-    public String getBenefitdescription() {
-        return benefitdescription;
-    }
-
-    public void setBenefitdescription(String benefitdescription) {
-        this.benefitdescription = benefitdescription;
     }
 
     public Home getIdhome() {

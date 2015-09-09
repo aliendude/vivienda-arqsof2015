@@ -1,6 +1,5 @@
 package Controller;
 
-import DAO.HomeFacade;
 import Entity.Home;
 import Controller.util.JsfUtil;
 import Controller.util.PaginationHelper;
@@ -25,7 +24,7 @@ public class HomeController implements Serializable {
     private Home current;
     private DataModel items = null;
     @EJB
-    private DAO.HomeFacade ejbFacade;
+    private Controller.HomeFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 

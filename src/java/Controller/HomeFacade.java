@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package Controller;
 
-import Entity.Benefit;
+import Entity.Home;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,8 +15,8 @@ import javax.persistence.PersistenceContext;
  * @author mac
  */
 @Stateless
-public class BenefitFacade extends AbstractFacade<Benefit> {
-    @PersistenceContext(unitName = "Vivienda2PU")
+public class HomeFacade extends AbstractFacade<Home> {
+    @PersistenceContext(unitName = "ViviendaPU")
     private EntityManager em;
 
     @Override
@@ -24,8 +24,8 @@ public class BenefitFacade extends AbstractFacade<Benefit> {
         return em;
     }
 
-    public BenefitFacade() {
-        super(Benefit.class);
+    public HomeFacade() {
+        super(Home.class);
     }
     
 }

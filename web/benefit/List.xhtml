@@ -28,6 +28,12 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBenefitTitle_benefitdescription}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.benefitdescription}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListBenefitTitle_benefittype}"/>
                             </f:facet>
                             <h:outputText value="#{item.benefittype}"/>
@@ -37,12 +43,6 @@
                                 <h:outputText value="#{bundle.ListBenefitTitle_benefitvalue}"/>
                             </f:facet>
                             <h:outputText value="#{item.benefitvalue}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListBenefitTitle_benefitdescription}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.benefitdescription}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

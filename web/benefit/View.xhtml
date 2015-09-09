@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewBenefitTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewBenefitLabel_benefitPK_idbenefit}"/>
+                    <h:outputText value="#{benefitController.selected.benefitPK.idbenefit}" title="#{bundle.ViewBenefitTitle_benefitPK_idbenefit}"/>
+                    <h:outputText value="#{bundle.ViewBenefitLabel_benefittype}"/>
+                    <h:outputText value="#{benefitController.selected.benefittype}" title="#{bundle.ViewBenefitTitle_benefittype}"/>
+                    <h:outputText value="#{bundle.ViewBenefitLabel_benefitvalue}"/>
+                    <h:outputText value="#{benefitController.selected.benefitvalue}" title="#{bundle.ViewBenefitTitle_benefitvalue}"/>
+                    <h:outputText value="#{bundle.ViewBenefitLabel_benefitdescription}"/>
+                    <h:outputText value="#{benefitController.selected.benefitdescription}" title="#{bundle.ViewBenefitTitle_benefitdescription}"/>
+                    <h:outputText value="#{bundle.ViewBenefitLabel_home}"/>
+                    <h:outputText value="#{benefitController.selected.home}" title="#{bundle.ViewBenefitTitle_home}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{benefitController.destroyAndView}" value="#{bundle.ViewBenefitDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewBenefitEditLink}"/>
+                <br />
+                <h:commandLink action="#{benefitController.prepareCreate}" value="#{bundle.ViewBenefitCreateLink}" />
+                <br />
+                <h:commandLink action="#{benefitController.prepareList}" value="#{bundle.ViewBenefitShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewBenefitIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateBenefitTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateBenefitLabel_benefitPK_idbenefit}" for="benefitPK_idbenefit" />
+                    <h:inputText id="benefitPK_idbenefit" value="#{benefitController.selected.benefitPK.idbenefit}" title="#{bundle.CreateBenefitTitle_benefitPK_idbenefit}" required="true" requiredMessage="#{bundle.CreateBenefitRequiredMessage_benefitPK_idbenefit}"/>
+                    <h:outputLabel value="#{bundle.CreateBenefitLabel_benefittype}" for="benefittype" />
+                    <h:inputText id="benefittype" value="#{benefitController.selected.benefittype}" title="#{bundle.CreateBenefitTitle_benefittype}" required="true" requiredMessage="#{bundle.CreateBenefitRequiredMessage_benefittype}"/>
+                    <h:outputLabel value="#{bundle.CreateBenefitLabel_benefitvalue}" for="benefitvalue" />
+                    <h:inputText id="benefitvalue" value="#{benefitController.selected.benefitvalue}" title="#{bundle.CreateBenefitTitle_benefitvalue}" required="true" requiredMessage="#{bundle.CreateBenefitRequiredMessage_benefitvalue}"/>
+                    <h:outputLabel value="#{bundle.CreateBenefitLabel_benefitdescription}" for="benefitdescription" />
+                    <h:inputTextarea rows="4" cols="30" id="benefitdescription" value="#{benefitController.selected.benefitdescription}" title="#{bundle.CreateBenefitTitle_benefitdescription}" />
+                    <h:outputLabel value="#{bundle.CreateBenefitLabel_home}" for="home" />
+                    <h:selectOneMenu id="home" value="#{benefitController.selected.home}" title="#{bundle.CreateBenefitTitle_home}" required="true" requiredMessage="#{bundle.CreateBenefitRequiredMessage_home}">
+                        <f:selectItems value="#{homeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{benefitController.create}" value="#{bundle.CreateBenefitSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{benefitController.prepareList}" value="#{bundle.CreateBenefitShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateBenefitIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

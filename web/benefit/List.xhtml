@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListBenefitTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListBenefitEmpty}" rendered="#{benefitController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{benefitController.items.rowCount > 0}">
+                    <h:outputText value="#{benefitController.pagination.pageFirstItem + 1}..#{benefitController.pagination.pageLastItem + 1}/#{benefitController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{benefitController.previous}" value="#{bundle.Previous} #{benefitController.pagination.pageSize}" rendered="#{benefitController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{benefitController.next}" value="#{bundle.Next} #{benefitController.pagination.pageSize}" rendered="#{benefitController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{benefitController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBenefitTitle_benefitPK_idbenefit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.benefitPK.idbenefit}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBenefitTitle_benefittype}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.benefittype}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBenefitTitle_benefitvalue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.benefitvalue}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBenefitTitle_benefitdescription}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.benefitdescription}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBenefitTitle_home}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.home}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{benefitController.prepareView}" value="#{bundle.ListBenefitViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{benefitController.prepareEdit}" value="#{bundle.ListBenefitEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{benefitController.destroy}" value="#{bundle.ListBenefitDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{benefitController.prepareCreate}" value="#{bundle.ListBenefitCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListBenefitIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

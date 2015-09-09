@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateHomeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateHomeLabel_idhome}" for="idhome" />
+                    <h:inputText id="idhome" value="#{homeController.selected.idhome}" title="#{bundle.CreateHomeTitle_idhome}" required="true" requiredMessage="#{bundle.CreateHomeRequiredMessage_idhome}"/>
+                    <h:outputLabel value="#{bundle.CreateHomeLabel_hometype}" for="hometype" />
+                    <h:inputTextarea rows="4" cols="30" id="hometype" value="#{homeController.selected.hometype}" title="#{bundle.CreateHomeTitle_hometype}" required="true" requiredMessage="#{bundle.CreateHomeRequiredMessage_hometype}"/>
+                    <h:outputLabel value="#{bundle.CreateHomeLabel_contracttype}" for="contracttype" />
+                    <h:inputText id="contracttype" value="#{homeController.selected.contracttype}" title="#{bundle.CreateHomeTitle_contracttype}" required="true" requiredMessage="#{bundle.CreateHomeRequiredMessage_contracttype}"/>
+                    <h:outputLabel value="#{bundle.CreateHomeLabel_city}" for="city" />
+                    <h:inputText id="city" value="#{homeController.selected.city}" title="#{bundle.CreateHomeTitle_city}" required="true" requiredMessage="#{bundle.CreateHomeRequiredMessage_city}"/>
+                    <h:outputLabel value="#{bundle.CreateHomeLabel_homeaddress}" for="homeaddress" />
+                    <h:inputTextarea rows="4" cols="30" id="homeaddress" value="#{homeController.selected.homeaddress}" title="#{bundle.CreateHomeTitle_homeaddress}" required="true" requiredMessage="#{bundle.CreateHomeRequiredMessage_homeaddress}"/>
+                    <h:outputLabel value="#{bundle.CreateHomeLabel_homevalue}" for="homevalue" />
+                    <h:inputText id="homevalue" value="#{homeController.selected.homevalue}" title="#{bundle.CreateHomeTitle_homevalue}" required="true" requiredMessage="#{bundle.CreateHomeRequiredMessage_homevalue}"/>
+                    <h:outputLabel value="#{bundle.CreateHomeLabel_idperson}" for="idperson" />
+                    <h:selectOneMenu id="idperson" value="#{homeController.selected.idperson}" title="#{bundle.CreateHomeTitle_idperson}" >
+                        <f:selectItems value="#{personController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{homeController.create}" value="#{bundle.CreateHomeSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{homeController.prepareList}" value="#{bundle.CreateHomeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateHomeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListHomeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListHomeEmpty}" rendered="#{homeController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{homeController.items.rowCount > 0}">
+                    <h:outputText value="#{homeController.pagination.pageFirstItem + 1}..#{homeController.pagination.pageLastItem + 1}/#{homeController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{homeController.previous}" value="#{bundle.Previous} #{homeController.pagination.pageSize}" rendered="#{homeController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{homeController.next}" value="#{bundle.Next} #{homeController.pagination.pageSize}" rendered="#{homeController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{homeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHomeTitle_idhome}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idhome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHomeTitle_hometype}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.hometype}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHomeTitle_contracttype}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contracttype}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHomeTitle_city}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.city}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHomeTitle_homeaddress}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.homeaddress}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHomeTitle_homevalue}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.homevalue}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHomeTitle_idperson}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idperson}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{homeController.prepareView}" value="#{bundle.ListHomeViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{homeController.prepareEdit}" value="#{bundle.ListHomeEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{homeController.destroy}" value="#{bundle.ListHomeDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{homeController.prepareCreate}" value="#{bundle.ListHomeCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListHomeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

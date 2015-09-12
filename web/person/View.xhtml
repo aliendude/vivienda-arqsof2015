@@ -16,39 +16,39 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewPersonLabel_idperson}"/>
-                    <h:outputText value="#{personController.selected.idperson}" title="#{bundle.ViewPersonTitle_idperson}"/>
+                    <h:outputText value="#{personBean.selected.idperson}" title="#{bundle.ViewPersonTitle_idperson}"/>
                     <h:outputText value="#{bundle.ViewPersonLabel_address}"/>
-                    <h:outputText value="#{personController.selected.address}" title="#{bundle.ViewPersonTitle_address}"/>
+                    <h:outputText value="#{personBean.selected.address}" title="#{bundle.ViewPersonTitle_address}"/>
                     <h:outputText value="#{bundle.ViewPersonLabel_document}"/>
-                    <h:outputText value="#{personController.selected.document}" title="#{bundle.ViewPersonTitle_document}"/>
+                    <h:outputText value="#{personBean.selected.document}" title="#{bundle.ViewPersonTitle_document}"/>
                     <h:outputText value="#{bundle.ViewPersonLabel_EMail}"/>
-                    <h:outputText value="#{personController.selected.EMail}" title="#{bundle.ViewPersonTitle_EMail}"/>
+                    <h:outputText value="#{personBean.selected.EMail}" title="#{bundle.ViewPersonTitle_EMail}"/>
                     <h:outputText value="#{bundle.ViewPersonLabel_lastName}"/>
-                    <h:outputText value="#{personController.selected.lastName}" title="#{bundle.ViewPersonTitle_lastName}"/>
+                    <h:outputText value="#{personBean.selected.lastName}" title="#{bundle.ViewPersonTitle_lastName}"/>
                     <h:outputText value="#{bundle.ViewPersonLabel_name}"/>
-                    <h:outputText value="#{personController.selected.name}" title="#{bundle.ViewPersonTitle_name}"/>
+                    <h:outputText value="#{personBean.selected.name}" title="#{bundle.ViewPersonTitle_name}"/>
                     <h:outputText value="#{bundle.ViewPersonLabel_password}"/>
-                    <h:outputText value="#{personController.selected.password}" title="#{bundle.ViewPersonTitle_password}"/>
+                    <h:outputText value="#{personBean.selected.password}" title="#{bundle.ViewPersonTitle_password}"/>
                     <h:outputText value="#{bundle.ViewPersonLabel_phone}"/>
-                    <h:outputText value="#{personController.selected.phone}" title="#{bundle.ViewPersonTitle_phone}"/>
+                    <h:outputText value="#{personBean.selected.phone}" title="#{bundle.ViewPersonTitle_phone}"/>
                     <h:outputText value="#{bundle.ViewPersonLabel_profession}"/>
-                    <h:outputText value="#{personController.selected.profession}" title="#{bundle.ViewPersonTitle_profession}"/>
+                    <h:outputText value="#{personBean.selected.profession}" title="#{bundle.ViewPersonTitle_profession}"/>
                     <h:outputText value="#{bundle.ViewPersonLabel_rol}"/>
-                    <h:outputText value="#{personController.selected.rol}" title="#{bundle.ViewPersonTitle_rol}"/>
+                    <h:outputText value="#{personBean.selected.rol}" title="#{bundle.ViewPersonTitle_rol}"/>
                     <h:outputText value="#{bundle.ViewPersonLabel_salary}"/>
-                    <h:outputText value="#{personController.selected.salary}" title="#{bundle.ViewPersonTitle_salary}"/>
+                    <h:outputText value="#{personBean.selected.salary}" title="#{bundle.ViewPersonTitle_salary}"/>
                     <h:outputText value="#{bundle.ViewPersonLabel_user}"/>
-                    <h:outputText value="#{personController.selected.user}" title="#{bundle.ViewPersonTitle_user}"/>
+                    <h:outputText value="#{personBean.selected.user}" title="#{bundle.ViewPersonTitle_user}"/>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{personController.destroyAndView}" value="#{bundle.ViewPersonDestroyLink}"/>
+                <h:commandLink action="#{personBean.destroyAndView}" value="#{bundle.ViewPersonDestroyLink}"/>
                 <br />
                 <br />
                 <h:link outcome="Edit" value="#{bundle.ViewPersonEditLink}"/>
                 <br />
-                <h:commandLink action="#{personController.prepareCreate}" value="#{bundle.ViewPersonCreateLink}" />
+                <h:commandLink action="#{personBean.prepareCreate}" value="#{bundle.ViewPersonCreateLink}" />
                 <br />
-                <h:commandLink action="#{personController.prepareList}" value="#{bundle.ViewPersonShowAllLink}"/>
+                <h:commandLink action="#{personBean.prepareList}" value="#{bundle.ViewPersonShowAllLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ViewPersonIndexLink}"/>

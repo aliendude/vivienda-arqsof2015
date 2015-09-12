@@ -14,12 +14,12 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListBenefitEmpty}" rendered="#{benefitController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{benefitController.items.rowCount > 0}">
-                    <h:outputText value="#{benefitController.pagination.pageFirstItem + 1}..#{benefitController.pagination.pageLastItem + 1}/#{benefitController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{benefitController.previous}" value="#{bundle.Previous} #{benefitController.pagination.pageSize}" rendered="#{benefitController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{benefitController.next}" value="#{bundle.Next} #{benefitController.pagination.pageSize}" rendered="#{benefitController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{benefitController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                <h:outputText escape="false" value="#{bundle.ListBenefitEmpty}" rendered="#{benefitBean.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{benefitBean.items.rowCount > 0}">
+                    <h:outputText value="#{benefitBean.pagination.pageFirstItem + 1}..#{benefitBean.pagination.pageLastItem + 1}/#{benefitBean.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{benefitBean.previous}" value="#{bundle.Previous} #{benefitBean.pagination.pageSize}" rendered="#{benefitBean.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{benefitBean.next}" value="#{bundle.Next} #{benefitBean.pagination.pageSize}" rendered="#{benefitBean.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{benefitBean.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListBenefitTitle_idbenefit}"/>
@@ -54,16 +54,16 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{benefitController.prepareView}" value="#{bundle.ListBenefitViewLink}"/>
+                            <h:commandLink action="#{benefitBean.prepareView}" value="#{bundle.ListBenefitViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{benefitController.prepareEdit}" value="#{bundle.ListBenefitEditLink}"/>
+                            <h:commandLink action="#{benefitBean.prepareEdit}" value="#{bundle.ListBenefitEditLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{benefitController.destroy}" value="#{bundle.ListBenefitDestroyLink}"/>
+                            <h:commandLink action="#{benefitBean.destroy}" value="#{bundle.ListBenefitDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
                 <br />
-                <h:commandLink action="#{benefitController.prepareCreate}" value="#{bundle.ListBenefitCreateLink}"/>
+                <h:commandLink action="#{benefitBean.prepareCreate}" value="#{bundle.ListBenefitCreateLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListBenefitIndexLink}"/>

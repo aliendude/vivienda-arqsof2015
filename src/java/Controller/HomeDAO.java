@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Entity.Person;
+import Entity.Home;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author mac
  */
 @Stateless
-public class PersonFacade extends AbstractFacade<Person> {
+public class HomeDAO extends AbstractDAO<Home> {
     @PersistenceContext(unitName = "ViviendaPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class PersonFacade extends AbstractFacade<Person> {
         return em;
     }
 
-    public PersonFacade() {
-        super(Person.class);
+    public HomeDAO() {
+        super(Home.class);
     }
     
 }

@@ -58,6 +58,7 @@ public class Person implements Serializable {
     private BigInteger document;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 255)
+    @Basic(optional = false)
     @Column(name = "E_MAIL")
     private String eMail;
     @Size(max = 255)

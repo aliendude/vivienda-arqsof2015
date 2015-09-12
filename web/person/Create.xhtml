@@ -16,35 +16,35 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreatePersonLabel_idperson}" for="idperson" />
-                    <h:inputText id="idperson" value="#{personController.selected.idperson}" title="#{bundle.CreatePersonTitle_idperson}" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_idperson}"/>
+                    <h:inputText id="idperson" value="#{personBean.selected.idperson}" title="#{bundle.CreatePersonTitle_idperson}" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_idperson}"/>
                     <h:outputLabel value="#{bundle.CreatePersonLabel_address}" for="address" />
-                    <h:inputTextarea rows="4" cols="30" id="address" value="#{personController.selected.address}" title="#{bundle.CreatePersonTitle_address}" />
+                    <h:inputTextarea rows="4" cols="30" id="address" value="#{personBean.selected.address}" title="#{bundle.CreatePersonTitle_address}" />
                     <h:outputLabel value="#{bundle.CreatePersonLabel_document}" for="document" />
-                    <h:inputText id="document" value="#{personController.selected.document}" title="#{bundle.CreatePersonTitle_document}" />
+                    <h:inputText id="document" value="#{personBean.selected.document}" title="#{bundle.CreatePersonTitle_document}" />
                     <h:outputLabel value="#{bundle.CreatePersonLabel_EMail}" for="EMail" />
-                    <h:inputText id="EMail" value="#{personController.selected.EMail}" title="#{bundle.CreatePersonTitle_EMail}" />
+                    <h:inputText id="EMail" value="#{personBean.selected.EMail}" title="#{bundle.CreatePersonTitle_EMail}" />
                     <h:outputLabel value="#{bundle.CreatePersonLabel_lastName}" for="lastName" />
-                    <h:inputText id="lastName" value="#{personController.selected.lastName}" title="#{bundle.CreatePersonTitle_lastName}" />
+                    <h:inputText id="lastName" value="#{personBean.selected.lastName}" title="#{bundle.CreatePersonTitle_lastName}" />
                     <h:outputLabel value="#{bundle.CreatePersonLabel_name}" for="name" />
-                    <h:inputText id="name" value="#{personController.selected.name}" title="#{bundle.CreatePersonTitle_name}" />
+                    <h:inputText id="name" value="#{personBean.selected.name}" title="#{bundle.CreatePersonTitle_name}" />
                     <h:outputLabel value="#{bundle.CreatePersonLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{personController.selected.password}" title="#{bundle.CreatePersonTitle_password}" />
+                    <h:inputText id="password" value="#{personBean.selected.password}" title="#{bundle.CreatePersonTitle_password}" />
                     <h:outputLabel value="#{bundle.CreatePersonLabel_phone}" for="phone" />
-                    <h:inputText id="phone" value="#{personController.selected.phone}" title="#{bundle.CreatePersonTitle_phone}" />
+                    <h:inputText id="phone" value="#{personBean.selected.phone}" title="#{bundle.CreatePersonTitle_phone}" />
                     <h:outputLabel value="#{bundle.CreatePersonLabel_profession}" for="profession" />
-                    <h:inputText id="profession" value="#{personController.selected.profession}" title="#{bundle.CreatePersonTitle_profession}" />
+                    <h:inputText id="profession" value="#{personBean.selected.profession}" title="#{bundle.CreatePersonTitle_profession}" />
                     <h:outputLabel value="#{bundle.CreatePersonLabel_rol}" for="rol" />
-                    <h:inputText id="rol" value="#{personController.selected.rol}" title="#{bundle.CreatePersonTitle_rol}" />
+                    <h:inputText id="rol" value="#{personBean.selected.rol}" title="#{bundle.CreatePersonTitle_rol}" />
                     <h:outputLabel value="#{bundle.CreatePersonLabel_salary}" for="salary" />
-                    <h:inputText id="salary" value="#{personController.selected.salary}" title="#{bundle.CreatePersonTitle_salary}" />
+                    <h:inputText id="salary" value="#{personBean.selected.salary}" title="#{bundle.CreatePersonTitle_salary}" />
                     <h:outputLabel value="#{bundle.CreatePersonLabel_user}" for="user" />
-                    <h:inputText id="user" value="#{personController.selected.user}" title="#{bundle.CreatePersonTitle_user}" />
+                    <h:inputText id="user" value="#{personBean.selected.user}" title="#{bundle.CreatePersonTitle_user}" />
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{personController.create}" value="#{bundle.CreatePersonSaveLink}" />
+                <h:commandLink action="#{personBean.create}" value="#{bundle.CreatePersonSaveLink}" />
                 <br />
                 <br />
-                <h:commandLink action="#{personController.prepareList}" value="#{bundle.CreatePersonShowAllLink}" immediate="true"/>
+                <h:commandLink action="#{personBean.prepareList}" value="#{bundle.CreatePersonShowAllLink}" immediate="true"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.CreatePersonIndexLink}"/>

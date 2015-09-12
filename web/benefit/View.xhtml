@@ -16,25 +16,25 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewBenefitLabel_idbenefit}"/>
-                    <h:outputText value="#{benefitController.selected.idbenefit}" title="#{bundle.ViewBenefitTitle_idbenefit}"/>
+                    <h:outputText value="#{benefitBean.selected.idbenefit}" title="#{bundle.ViewBenefitTitle_idbenefit}"/>
                     <h:outputText value="#{bundle.ViewBenefitLabel_benefitdescription}"/>
-                    <h:outputText value="#{benefitController.selected.benefitdescription}" title="#{bundle.ViewBenefitTitle_benefitdescription}"/>
+                    <h:outputText value="#{benefitBean.selected.benefitdescription}" title="#{bundle.ViewBenefitTitle_benefitdescription}"/>
                     <h:outputText value="#{bundle.ViewBenefitLabel_benefittype}"/>
-                    <h:outputText value="#{benefitController.selected.benefittype}" title="#{bundle.ViewBenefitTitle_benefittype}"/>
+                    <h:outputText value="#{benefitBean.selected.benefittype}" title="#{bundle.ViewBenefitTitle_benefittype}"/>
                     <h:outputText value="#{bundle.ViewBenefitLabel_benefitvalue}"/>
-                    <h:outputText value="#{benefitController.selected.benefitvalue}" title="#{bundle.ViewBenefitTitle_benefitvalue}"/>
+                    <h:outputText value="#{benefitBean.selected.benefitvalue}" title="#{bundle.ViewBenefitTitle_benefitvalue}"/>
                     <h:outputText value="#{bundle.ViewBenefitLabel_idhome}"/>
-                    <h:outputText value="#{benefitController.selected.idhome}" title="#{bundle.ViewBenefitTitle_idhome}"/>
+                    <h:outputText value="#{benefitBean.selected.idhome}" title="#{bundle.ViewBenefitTitle_idhome}"/>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{benefitController.destroyAndView}" value="#{bundle.ViewBenefitDestroyLink}"/>
+                <h:commandLink action="#{benefitBean.destroyAndView}" value="#{bundle.ViewBenefitDestroyLink}"/>
                 <br />
                 <br />
                 <h:link outcome="Edit" value="#{bundle.ViewBenefitEditLink}"/>
                 <br />
-                <h:commandLink action="#{benefitController.prepareCreate}" value="#{bundle.ViewBenefitCreateLink}" />
+                <h:commandLink action="#{benefitBean.prepareCreate}" value="#{bundle.ViewBenefitCreateLink}" />
                 <br />
-                <h:commandLink action="#{benefitController.prepareList}" value="#{bundle.ViewBenefitShowAllLink}"/>
+                <h:commandLink action="#{benefitBean.prepareList}" value="#{bundle.ViewBenefitShowAllLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ViewBenefitIndexLink}"/>

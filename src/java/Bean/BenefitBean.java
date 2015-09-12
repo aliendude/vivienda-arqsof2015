@@ -1,6 +1,7 @@
-package Controller;
+package Bean;
 
-import Entity.Person;
+import Controller.BenefitDAO;
+import Entity.Benefit;
 import Controller.util.JsfUtil;
 import Controller.util.PaginationHelper;
 
@@ -17,30 +18,30 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "personController")
+@ManagedBean(name = "benefitBean")
 @SessionScoped
-public class PersonController implements Serializable {
+public class BenefitBean implements Serializable {
 
-    private Person current;
+    private Benefit current;
     private DataModel items = null;
     @EJB
-    private Controller.PersonFacade ejbFacade;
+    private Controller.BenefitDAO ejbDAO;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public PersonController() {
+    public BenefitBean() {
     }
 
-    public Person getSelected() {
+    public Benefit getSelected() {
         if (current == null) {
-            current = new Person();
+            current = new Benefit();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private PersonFacade getFacade() {
-        return ejbFacade;
+    private BenefitDAO getDAO() {
+        return ejbDAO;
     }
 
     public PaginationHelper getPagination() {
@@ -49,12 +50,12 @@ public class PersonController implements Serializable {
 
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getDAO().count();
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getDAO().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -67,21 +68,21 @@ public class PersonController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Person) getItems().getRowData();
+        current = (Benefit) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Person();
+        current = new Benefit();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonCreated"));
+            getDAO().create(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BenefitCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -90,15 +91,15 @@ public class PersonController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Person) getItems().getRowData();
+        current = (Benefit) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
-            getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonUpdated"));
+            getDAO().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BenefitUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -107,7 +108,7 @@ public class PersonController implements Serializable {
     }
 
     public String destroy() {
-        current = (Person) getItems().getRowData();
+        current = (Benefit) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -130,15 +131,15 @@ public class PersonController implements Serializable {
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonDeleted"));
+            getDAO().remove(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BenefitDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
 
     private void updateCurrentItem() {
-        int count = getFacade().count();
+        int count = getDAO().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -148,7 +149,7 @@ public class PersonController implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            current = getDAO().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
 
@@ -180,24 +181,24 @@ public class PersonController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+        return JsfUtil.getSelectItems(ejbDAO.findAll(), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbDAO.findAll(), true);
     }
 
-    @FacesConverter(forClass = Person.class)
-    public static class PersonControllerConverter implements Converter {
+    @FacesConverter(forClass = Benefit.class)
+    public static class BenefitControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PersonController controller = (PersonController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "personController");
-            return controller.ejbFacade.find(getKey(value));
+            BenefitBean controller = (BenefitBean) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "benefitBean");
+            return controller.ejbDAO.find(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -217,11 +218,11 @@ public class PersonController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Person) {
-                Person o = (Person) object;
-                return getStringKey(o.getIdperson());
+            if (object instanceof Benefit) {
+                Benefit o = (Benefit) object;
+                return getStringKey(o.getIdbenefit());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Person.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Benefit.class.getName());
             }
         }
 

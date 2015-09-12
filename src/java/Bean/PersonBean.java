@@ -1,6 +1,7 @@
-package Controller;
+package Bean;
 
-import Entity.Home;
+import Controller.PersonDAO;
+import Entity.Person;
 import Controller.util.JsfUtil;
 import Controller.util.PaginationHelper;
 
@@ -17,30 +18,30 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "homeController")
+@ManagedBean(name = "personBean")
 @SessionScoped
-public class HomeController implements Serializable {
+public class PersonBean implements Serializable {
 
-    private Home current;
+    private Person current;
     private DataModel items = null;
     @EJB
-    private Controller.HomeFacade ejbFacade;
+    private Controller.PersonDAO ejbDAO;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public HomeController() {
+    public PersonBean() {
     }
 
-    public Home getSelected() {
+    public Person getSelected() {
         if (current == null) {
-            current = new Home();
+            current = new Person();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private HomeFacade getFacade() {
-        return ejbFacade;
+    private PersonDAO getDAO() {
+        return ejbDAO;
     }
 
     public PaginationHelper getPagination() {
@@ -49,12 +50,12 @@ public class HomeController implements Serializable {
 
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getDAO().count();
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getDAO().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -67,21 +68,21 @@ public class HomeController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Home) getItems().getRowData();
+        current = (Person) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Home();
+        current = new Person();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("HomeCreated"));
+            getDAO().create(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -90,15 +91,15 @@ public class HomeController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Home) getItems().getRowData();
+        current = (Person) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
-            getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("HomeUpdated"));
+            getDAO().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -107,7 +108,7 @@ public class HomeController implements Serializable {
     }
 
     public String destroy() {
-        current = (Home) getItems().getRowData();
+        current = (Person) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -130,15 +131,15 @@ public class HomeController implements Serializable {
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("HomeDeleted"));
+            getDAO().remove(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
 
     private void updateCurrentItem() {
-        int count = getFacade().count();
+        int count = getDAO().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -148,7 +149,7 @@ public class HomeController implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            current = getDAO().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
 
@@ -180,24 +181,24 @@ public class HomeController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+        return JsfUtil.getSelectItems(ejbDAO.findAll(), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbDAO.findAll(), true);
     }
 
-    @FacesConverter(forClass = Home.class)
-    public static class HomeControllerConverter implements Converter {
+    @FacesConverter(forClass = Person.class)
+    public static class PersonControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            HomeController controller = (HomeController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "homeController");
-            return controller.ejbFacade.find(getKey(value));
+            PersonBean controller = (PersonBean) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "personBean");
+            return controller.ejbDAO.find(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -217,11 +218,11 @@ public class HomeController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Home) {
-                Home o = (Home) object;
-                return getStringKey(o.getIdhome());
+            if (object instanceof Person) {
+                Person o = (Person) object;
+                return getStringKey(o.getIdperson());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Home.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Person.class.getName());
             }
         }
 

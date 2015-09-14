@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity;
+package DataAccess.Entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -21,13 +19,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author mac
+ * @author trossky
  */
 @Entity
 @Table(name = "HOME")
@@ -41,8 +40,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Home implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "IDHOME")
     private Long idhome;
     @Size(max = 255)
@@ -61,11 +60,11 @@ public class Home implements Serializable {
     private String hometype;
     @Column(name = "HOMEVALUE")
     private BigInteger homevalue;
+    @OneToMany(mappedBy = "idhome")
+    private Collection<Benefit> benefitCollection;
     @JoinColumn(name = "IDPERSON", referencedColumnName = "IDPERSON")
     @ManyToOne
     private Person idperson;
-    @OneToMany(mappedBy = "idhome")
-    private List<Benefit> benefitList;
 
     public Home() {
     }
@@ -122,21 +121,21 @@ public class Home implements Serializable {
         this.homevalue = homevalue;
     }
 
+    @XmlTransient
+    public Collection<Benefit> getBenefitCollection() {
+        return benefitCollection;
+    }
+
+    public void setBenefitCollection(Collection<Benefit> benefitCollection) {
+        this.benefitCollection = benefitCollection;
+    }
+
     public Person getIdperson() {
         return idperson;
     }
 
     public void setIdperson(Person idperson) {
         this.idperson = idperson;
-    }
-
-    @XmlTransient
-    public List<Benefit> getBenefitList() {
-        return benefitList;
-    }
-
-    public void setBenefitList(List<Benefit> benefitList) {
-        this.benefitList = benefitList;
     }
 
     @Override
@@ -161,7 +160,7 @@ public class Home implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Home[ idhome=" + idhome + " ]";
+        return "DataAccess.Entity.Home[ idhome=" + idhome + " ]";
     }
     
 }

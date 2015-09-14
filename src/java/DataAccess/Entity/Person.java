@@ -3,29 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entity;
+package DataAccess.Entity;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author mac
+ * @author trossky
  */
 @Entity
 @Table(name = "PERSON")
@@ -42,12 +41,13 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Person.findByProfession", query = "SELECT p FROM Person p WHERE p.profession = :profession"),
     @NamedQuery(name = "Person.findByRol", query = "SELECT p FROM Person p WHERE p.rol = :rol"),
     @NamedQuery(name = "Person.findBySalary", query = "SELECT p FROM Person p WHERE p.salary = :salary"),
-    @NamedQuery(name = "Person.findByUser", query = "SELECT p FROM Person p WHERE p.user = :user")})
+    @NamedQuery(name = "Person.findByUser", query = "SELECT p FROM Person p WHERE p.user = :user"),
+    @NamedQuery(name = "Person.findByCity", query = "SELECT p FROM Person p WHERE p.city = :city")})
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "IDPERSON")
     private Long idperson;
     @Lob
@@ -58,7 +58,6 @@ public class Person implements Serializable {
     private BigInteger document;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 255)
-    @Basic(optional = false)
     @Column(name = "E_MAIL")
     private String eMail;
     @Size(max = 255)
@@ -80,11 +79,14 @@ public class Person implements Serializable {
     private String rol;
     @Column(name = "SALARY")
     private BigInteger salary;
-    @Size(max = 255)
+    @Size(max = 25)
     @Column(name = "USER")
     private String user;
+    @Size(max = 50)
+    @Column(name = "CITY")
+    private String city;
     @OneToMany(mappedBy = "idperson")
-    private List<Home> homeList;
+    private Collection<Home> homeCollection;
 
     public Person() {
     }
@@ -189,13 +191,21 @@ public class Person implements Serializable {
         this.user = user;
     }
 
-    @XmlTransient
-    public List<Home> getHomeList() {
-        return homeList;
+    public String getCity() {
+        return city;
     }
 
-    public void setHomeList(List<Home> homeList) {
-        this.homeList = homeList;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @XmlTransient
+    public Collection<Home> getHomeCollection() {
+        return homeCollection;
+    }
+
+    public void setHomeCollection(Collection<Home> homeCollection) {
+        this.homeCollection = homeCollection;
     }
 
     @Override
@@ -220,7 +230,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Person[ idperson=" + idperson + " ]";
+        return "DataAccess.Entity.Person[ idperson=" + idperson + " ]";
     }
     
 }

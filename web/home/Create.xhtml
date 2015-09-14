@@ -16,27 +16,27 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateHomeLabel_idhome}" for="idhome" />
-                    <h:inputText id="idhome" value="#{homeBean.selected.idhome}" title="#{bundle.CreateHomeTitle_idhome}" required="true" requiredMessage="#{bundle.CreateHomeRequiredMessage_idhome}"/>
+                    <h:inputText id="idhome" value="#{homeController.selected.idhome}" title="#{bundle.CreateHomeTitle_idhome}" required="true" requiredMessage="#{bundle.CreateHomeRequiredMessage_idhome}"/>
                     <h:outputLabel value="#{bundle.CreateHomeLabel_city}" for="city" />
-                    <h:inputText id="city" value="#{homeBean.selected.city}" title="#{bundle.CreateHomeTitle_city}" />
+                    <h:inputText id="city" value="#{homeController.selected.city}" title="#{bundle.CreateHomeTitle_city}" />
                     <h:outputLabel value="#{bundle.CreateHomeLabel_contracttype}" for="contracttype" />
-                    <h:inputText id="contracttype" value="#{homeBean.selected.contracttype}" title="#{bundle.CreateHomeTitle_contracttype}" />
+                    <h:inputText id="contracttype" value="#{homeController.selected.contracttype}" title="#{bundle.CreateHomeTitle_contracttype}" />
                     <h:outputLabel value="#{bundle.CreateHomeLabel_homeaddress}" for="homeaddress" />
-                    <h:inputTextarea rows="4" cols="30" id="homeaddress" value="#{homeBean.selected.homeaddress}" title="#{bundle.CreateHomeTitle_homeaddress}" />
+                    <h:inputTextarea rows="4" cols="30" id="homeaddress" value="#{homeController.selected.homeaddress}" title="#{bundle.CreateHomeTitle_homeaddress}" />
                     <h:outputLabel value="#{bundle.CreateHomeLabel_hometype}" for="hometype" />
-                    <h:inputTextarea rows="4" cols="30" id="hometype" value="#{homeBean.selected.hometype}" title="#{bundle.CreateHomeTitle_hometype}" />
+                    <h:inputTextarea rows="4" cols="30" id="hometype" value="#{homeController.selected.hometype}" title="#{bundle.CreateHomeTitle_hometype}" />
                     <h:outputLabel value="#{bundle.CreateHomeLabel_homevalue}" for="homevalue" />
-                    <h:inputText id="homevalue" value="#{homeBean.selected.homevalue}" title="#{bundle.CreateHomeTitle_homevalue}" />
+                    <h:inputText id="homevalue" value="#{homeController.selected.homevalue}" title="#{bundle.CreateHomeTitle_homevalue}" />
                     <h:outputLabel value="#{bundle.CreateHomeLabel_idperson}" for="idperson" />
-                    <h:selectOneMenu id="idperson" value="#{homeBean.selected.idperson}" title="#{bundle.CreateHomeTitle_idperson}" >
+                    <h:selectOneMenu id="idperson" value="#{homeController.selected.idperson}" title="#{bundle.CreateHomeTitle_idperson}" >
                         <f:selectItems value="#{personController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{homeBean.create}" value="#{bundle.CreateHomeSaveLink}" />
+                <h:commandLink action="#{homeController.create}" value="#{bundle.CreateHomeSaveLink}" />
                 <br />
                 <br />
-                <h:commandLink action="#{homeBean.prepareList}" value="#{bundle.CreateHomeShowAllLink}" immediate="true"/>
+                <h:commandLink action="#{homeController.prepareList}" value="#{bundle.CreateHomeShowAllLink}" immediate="true"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.CreateHomeIndexLink}"/>

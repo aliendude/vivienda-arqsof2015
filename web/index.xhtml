@@ -3,18 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Vivienda</title>
+        <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        Welcome to Vivienda
-        <br/>
+        Hello from Facelets
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
         <br />
         <h:link outcome="/benefit/List" value="Show All Benefit Items"/>
         <br />
         <h:link outcome="/home/List" value="Show All Home Items"/>
         <br />
         <h:link outcome="/person/List" value="Show All Person Items"/>
+        <br />
+        <h:link outcome="/index.jsp" value="Authentication"/>
     </h:body>
 
 

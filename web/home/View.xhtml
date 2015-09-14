@@ -16,29 +16,29 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewHomeLabel_idhome}"/>
-                    <h:outputText value="#{homeBean.selected.idhome}" title="#{bundle.ViewHomeTitle_idhome}"/>
+                    <h:outputText value="#{homeController.selected.idhome}" title="#{bundle.ViewHomeTitle_idhome}"/>
                     <h:outputText value="#{bundle.ViewHomeLabel_city}"/>
-                    <h:outputText value="#{homeBean.selected.city}" title="#{bundle.ViewHomeTitle_city}"/>
+                    <h:outputText value="#{homeController.selected.city}" title="#{bundle.ViewHomeTitle_city}"/>
                     <h:outputText value="#{bundle.ViewHomeLabel_contracttype}"/>
-                    <h:outputText value="#{homeBean.selected.contracttype}" title="#{bundle.ViewHomeTitle_contracttype}"/>
+                    <h:outputText value="#{homeController.selected.contracttype}" title="#{bundle.ViewHomeTitle_contracttype}"/>
                     <h:outputText value="#{bundle.ViewHomeLabel_homeaddress}"/>
-                    <h:outputText value="#{homeBean.selected.homeaddress}" title="#{bundle.ViewHomeTitle_homeaddress}"/>
+                    <h:outputText value="#{homeController.selected.homeaddress}" title="#{bundle.ViewHomeTitle_homeaddress}"/>
                     <h:outputText value="#{bundle.ViewHomeLabel_hometype}"/>
-                    <h:outputText value="#{homeBean.selected.hometype}" title="#{bundle.ViewHomeTitle_hometype}"/>
+                    <h:outputText value="#{homeController.selected.hometype}" title="#{bundle.ViewHomeTitle_hometype}"/>
                     <h:outputText value="#{bundle.ViewHomeLabel_homevalue}"/>
-                    <h:outputText value="#{homeBean.selected.homevalue}" title="#{bundle.ViewHomeTitle_homevalue}"/>
+                    <h:outputText value="#{homeController.selected.homevalue}" title="#{bundle.ViewHomeTitle_homevalue}"/>
                     <h:outputText value="#{bundle.ViewHomeLabel_idperson}"/>
-                    <h:outputText value="#{homeBean.selected.idperson}" title="#{bundle.ViewHomeTitle_idperson}"/>
+                    <h:outputText value="#{homeController.selected.idperson}" title="#{bundle.ViewHomeTitle_idperson}"/>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{homeBean.destroyAndView}" value="#{bundle.ViewHomeDestroyLink}"/>
+                <h:commandLink action="#{homeController.destroyAndView}" value="#{bundle.ViewHomeDestroyLink}"/>
                 <br />
                 <br />
                 <h:link outcome="Edit" value="#{bundle.ViewHomeEditLink}"/>
                 <br />
-                <h:commandLink action="#{homeBean.prepareCreate}" value="#{bundle.ViewHomeCreateLink}" />
+                <h:commandLink action="#{homeController.prepareCreate}" value="#{bundle.ViewHomeCreateLink}" />
                 <br />
-                <h:commandLink action="#{homeBean.prepareList}" value="#{bundle.ViewHomeShowAllLink}"/>
+                <h:commandLink action="#{homeController.prepareList}" value="#{bundle.ViewHomeShowAllLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ViewHomeIndexLink}"/>

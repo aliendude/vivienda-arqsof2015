@@ -1,9 +1,9 @@
-package Bean;
+package Presentation.Bean;
 
-import Controller.HomeDAO;
-import Entity.Home;
-import Controller.util.JsfUtil;
-import Controller.util.PaginationHelper;
+import DataAccess.Entity.Home;
+import Presentation.Bean.util.JsfUtil;
+import Presentation.Bean.util.PaginationHelper;
+import DataAccess.DAO.HomeFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -18,18 +18,18 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "homeBean")
+@ManagedBean(name = "homeController")
 @SessionScoped
-public class HomeBean implements Serializable {
+public class HomeController implements Serializable {
 
     private Home current;
     private DataModel items = null;
     @EJB
-    private Controller.HomeDAO ejbDAO;
+    private DataAccess.DAO.HomeFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public HomeBean() {
+    public HomeController() {
     }
 
     public Home getSelected() {
@@ -40,8 +40,8 @@ public class HomeBean implements Serializable {
         return current;
     }
 
-    private HomeDAO getDAO() {
-        return ejbDAO;
+    private HomeFacade getFacade() {
+        return ejbFacade;
     }
 
     public PaginationHelper getPagination() {
@@ -50,12 +50,12 @@ public class HomeBean implements Serializable {
 
                 @Override
                 public int getItemsCount() {
-                    return getDAO().count();
+                    return getFacade().count();
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getDAO().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -81,7 +81,7 @@ public class HomeBean implements Serializable {
 
     public String create() {
         try {
-            getDAO().create(current);
+            getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("HomeCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -98,7 +98,7 @@ public class HomeBean implements Serializable {
 
     public String update() {
         try {
-            getDAO().edit(current);
+            getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("HomeUpdated"));
             return "View";
         } catch (Exception e) {
@@ -131,7 +131,7 @@ public class HomeBean implements Serializable {
 
     private void performDestroy() {
         try {
-            getDAO().remove(current);
+            getFacade().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("HomeDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -139,7 +139,7 @@ public class HomeBean implements Serializable {
     }
 
     private void updateCurrentItem() {
-        int count = getDAO().count();
+        int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -149,7 +149,7 @@ public class HomeBean implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getDAO().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
 
@@ -181,11 +181,11 @@ public class HomeBean implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbDAO.findAll(), false);
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbDAO.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
     @FacesConverter(forClass = Home.class)
@@ -196,9 +196,9 @@ public class HomeBean implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            HomeBean controller = (HomeBean) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "homeBean");
-            return controller.ejbDAO.find(getKey(value));
+            HomeController controller = (HomeController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "homeController");
+            return controller.ejbFacade.find(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

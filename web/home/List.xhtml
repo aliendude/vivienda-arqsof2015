@@ -14,12 +14,12 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListHomeEmpty}" rendered="#{homeBean.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{homeBean.items.rowCount > 0}">
-                    <h:outputText value="#{homeBean.pagination.pageFirstItem + 1}..#{homeBean.pagination.pageLastItem + 1}/#{homeBean.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{homeBean.previous}" value="#{bundle.Previous} #{homeBean.pagination.pageSize}" rendered="#{homeBean.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{homeBean.next}" value="#{bundle.Next} #{homeBean.pagination.pageSize}" rendered="#{homeBean.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{homeBean.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                <h:outputText escape="false" value="#{bundle.ListHomeEmpty}" rendered="#{homeController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{homeController.items.rowCount > 0}">
+                    <h:outputText value="#{homeController.pagination.pageFirstItem + 1}..#{homeController.pagination.pageLastItem + 1}/#{homeController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{homeController.previous}" value="#{bundle.Previous} #{homeController.pagination.pageSize}" rendered="#{homeController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{homeController.next}" value="#{bundle.Next} #{homeController.pagination.pageSize}" rendered="#{homeController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{homeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListHomeTitle_idhome}"/>
@@ -66,16 +66,16 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{homeBean.prepareView}" value="#{bundle.ListHomeViewLink}"/>
+                            <h:commandLink action="#{homeController.prepareView}" value="#{bundle.ListHomeViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{homeBean.prepareEdit}" value="#{bundle.ListHomeEditLink}"/>
+                            <h:commandLink action="#{homeController.prepareEdit}" value="#{bundle.ListHomeEditLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{homeBean.destroy}" value="#{bundle.ListHomeDestroyLink}"/>
+                            <h:commandLink action="#{homeController.destroy}" value="#{bundle.ListHomeDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
                 <br />
-                <h:commandLink action="#{homeBean.prepareCreate}" value="#{bundle.ListHomeCreateLink}"/>
+                <h:commandLink action="#{homeController.prepareCreate}" value="#{bundle.ListHomeCreateLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListHomeIndexLink}"/>

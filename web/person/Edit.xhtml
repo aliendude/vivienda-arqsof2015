@@ -16,36 +16,38 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.EditPersonLabel_idperson}" for="idperson" />
-                    <h:inputText id="idperson" value="#{personBean.selected.idperson}" title="#{bundle.EditPersonTitle_idperson}" required="true" requiredMessage="#{bundle.EditPersonRequiredMessage_idperson}"/>
+                    <h:inputText id="idperson" value="#{personController.selected.idperson}" title="#{bundle.EditPersonTitle_idperson}" required="true" requiredMessage="#{bundle.EditPersonRequiredMessage_idperson}"/>
                     <h:outputLabel value="#{bundle.EditPersonLabel_address}" for="address" />
-                    <h:inputTextarea rows="4" cols="30" id="address" value="#{personBean.selected.address}" title="#{bundle.EditPersonTitle_address}" />
+                    <h:inputTextarea rows="4" cols="30" id="address" value="#{personController.selected.address}" title="#{bundle.EditPersonTitle_address}" />
                     <h:outputLabel value="#{bundle.EditPersonLabel_document}" for="document" />
-                    <h:inputText id="document" value="#{personBean.selected.document}" title="#{bundle.EditPersonTitle_document}" />
+                    <h:inputText id="document" value="#{personController.selected.document}" title="#{bundle.EditPersonTitle_document}" />
                     <h:outputLabel value="#{bundle.EditPersonLabel_EMail}" for="EMail" />
-                    <h:inputText id="EMail" value="#{personBean.selected.EMail}" title="#{bundle.EditPersonTitle_EMail}" />
+                    <h:inputText id="EMail" value="#{personController.selected.EMail}" title="#{bundle.EditPersonTitle_EMail}" />
                     <h:outputLabel value="#{bundle.EditPersonLabel_lastName}" for="lastName" />
-                    <h:inputText id="lastName" value="#{personBean.selected.lastName}" title="#{bundle.EditPersonTitle_lastName}" />
+                    <h:inputText id="lastName" value="#{personController.selected.lastName}" title="#{bundle.EditPersonTitle_lastName}" />
                     <h:outputLabel value="#{bundle.EditPersonLabel_name}" for="name" />
-                    <h:inputText id="name" value="#{personBean.selected.name}" title="#{bundle.EditPersonTitle_name}" />
+                    <h:inputText id="name" value="#{personController.selected.name}" title="#{bundle.EditPersonTitle_name}" />
                     <h:outputLabel value="#{bundle.EditPersonLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{personBean.selected.password}" title="#{bundle.EditPersonTitle_password}" />
+                    <h:inputText id="password" value="#{personController.selected.password}" title="#{bundle.EditPersonTitle_password}" />
                     <h:outputLabel value="#{bundle.EditPersonLabel_phone}" for="phone" />
-                    <h:inputText id="phone" value="#{personBean.selected.phone}" title="#{bundle.EditPersonTitle_phone}" />
+                    <h:inputText id="phone" value="#{personController.selected.phone}" title="#{bundle.EditPersonTitle_phone}" />
                     <h:outputLabel value="#{bundle.EditPersonLabel_profession}" for="profession" />
-                    <h:inputText id="profession" value="#{personBean.selected.profession}" title="#{bundle.EditPersonTitle_profession}" />
+                    <h:inputText id="profession" value="#{personController.selected.profession}" title="#{bundle.EditPersonTitle_profession}" />
                     <h:outputLabel value="#{bundle.EditPersonLabel_rol}" for="rol" />
-                    <h:inputText id="rol" value="#{personBean.selected.rol}" title="#{bundle.EditPersonTitle_rol}" />
+                    <h:inputText id="rol" value="#{personController.selected.rol}" title="#{bundle.EditPersonTitle_rol}" />
                     <h:outputLabel value="#{bundle.EditPersonLabel_salary}" for="salary" />
-                    <h:inputText id="salary" value="#{personBean.selected.salary}" title="#{bundle.EditPersonTitle_salary}" />
+                    <h:inputText id="salary" value="#{personController.selected.salary}" title="#{bundle.EditPersonTitle_salary}" />
                     <h:outputLabel value="#{bundle.EditPersonLabel_user}" for="user" />
-                    <h:inputText id="user" value="#{personBean.selected.user}" title="#{bundle.EditPersonTitle_user}" />
+                    <h:inputText id="user" value="#{personController.selected.user}" title="#{bundle.EditPersonTitle_user}" />
+                    <h:outputLabel value="#{bundle.EditPersonLabel_city}" for="city" />
+                    <h:inputText id="city" value="#{personController.selected.city}" title="#{bundle.EditPersonTitle_city}" />
                 </h:panelGrid>
-                <h:commandLink action="#{personBean.update}" value="#{bundle.EditPersonSaveLink}"/>
+                <h:commandLink action="#{personController.update}" value="#{bundle.EditPersonSaveLink}"/>
                 <br />
                 <br />
                 <h:link outcome="View" value="#{bundle.EditPersonViewLink}"/>
                 <br />
-                <h:commandLink action="#{personBean.prepareList}" value="#{bundle.EditPersonShowAllLink}" immediate="true"/>
+                <h:commandLink action="#{personController.prepareList}" value="#{bundle.EditPersonShowAllLink}" immediate="true"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.EditPersonIndexLink}" />

@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package DataAccess.DAO;
 
-import Entity.Home;
+import DataAccess.Entity.Home;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author mac
+ * @author trossky
  */
 @Stateless
-public class HomeDAO extends AbstractDAO<Home> {
-    @PersistenceContext(unitName = "ViviendaPU")
+public class HomeFacade extends AbstractFacade<Home> {
+    @PersistenceContext(unitName = "HOME_FINALPU")
     private EntityManager em;
 
     @Override
@@ -24,7 +24,7 @@ public class HomeDAO extends AbstractDAO<Home> {
         return em;
     }
 
-    public HomeDAO() {
+    public HomeFacade() {
         super(Home.class);
     }
     

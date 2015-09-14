@@ -1,9 +1,9 @@
-package Bean;
+package Presentation.Bean;
 
-import Controller.BenefitDAO;
-import Entity.Benefit;
-import Controller.util.JsfUtil;
-import Controller.util.PaginationHelper;
+import DataAccess.Entity.Person;
+import Presentation.Bean.util.JsfUtil;
+import Presentation.Bean.util.PaginationHelper;
+import DataAccess.DAO.PersonFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -18,30 +18,30 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "benefitBean")
+@ManagedBean(name = "personController")
 @SessionScoped
-public class BenefitBean implements Serializable {
+public class PersonController implements Serializable {
 
-    private Benefit current;
+    private Person current;
     private DataModel items = null;
     @EJB
-    private Controller.BenefitDAO ejbDAO;
+    private DataAccess.DAO.PersonFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public BenefitBean() {
+    public PersonController() {
     }
 
-    public Benefit getSelected() {
+    public Person getSelected() {
         if (current == null) {
-            current = new Benefit();
+            current = new Person();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private BenefitDAO getDAO() {
-        return ejbDAO;
+    private PersonFacade getFacade() {
+        return ejbFacade;
     }
 
     public PaginationHelper getPagination() {
@@ -50,12 +50,12 @@ public class BenefitBean implements Serializable {
 
                 @Override
                 public int getItemsCount() {
-                    return getDAO().count();
+                    return getFacade().count();
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getDAO().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -68,21 +68,21 @@ public class BenefitBean implements Serializable {
     }
 
     public String prepareView() {
-        current = (Benefit) getItems().getRowData();
+        current = (Person) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Benefit();
+        current = new Person();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            getDAO().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BenefitCreated"));
+            getFacade().create(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -91,15 +91,15 @@ public class BenefitBean implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Benefit) getItems().getRowData();
+        current = (Person) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
-            getDAO().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BenefitUpdated"));
+            getFacade().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -108,7 +108,7 @@ public class BenefitBean implements Serializable {
     }
 
     public String destroy() {
-        current = (Benefit) getItems().getRowData();
+        current = (Person) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -131,15 +131,15 @@ public class BenefitBean implements Serializable {
 
     private void performDestroy() {
         try {
-            getDAO().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BenefitDeleted"));
+            getFacade().remove(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("PersonDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
 
     private void updateCurrentItem() {
-        int count = getDAO().count();
+        int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -149,7 +149,7 @@ public class BenefitBean implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getDAO().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
 
@@ -181,24 +181,24 @@ public class BenefitBean implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbDAO.findAll(), false);
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbDAO.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Benefit.class)
-    public static class BenefitControllerConverter implements Converter {
+    @FacesConverter(forClass = Person.class)
+    public static class PersonControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            BenefitBean controller = (BenefitBean) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "benefitBean");
-            return controller.ejbDAO.find(getKey(value));
+            PersonController controller = (PersonController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "personController");
+            return controller.ejbFacade.find(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -218,11 +218,11 @@ public class BenefitBean implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Benefit) {
-                Benefit o = (Benefit) object;
-                return getStringKey(o.getIdbenefit());
+            if (object instanceof Person) {
+                Person o = (Person) object;
+                return getStringKey(o.getIdperson());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Benefit.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Person.class.getName());
             }
         }
 

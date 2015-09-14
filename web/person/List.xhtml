@@ -14,12 +14,12 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListPersonEmpty}" rendered="#{personBean.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{personBean.items.rowCount > 0}">
-                    <h:outputText value="#{personBean.pagination.pageFirstItem + 1}..#{personBean.pagination.pageLastItem + 1}/#{personBean.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{personBean.previous}" value="#{bundle.Previous} #{personBean.pagination.pageSize}" rendered="#{personBean.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{personBean.next}" value="#{bundle.Next} #{personBean.pagination.pageSize}" rendered="#{personBean.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{personBean.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                <h:outputText escape="false" value="#{bundle.ListPersonEmpty}" rendered="#{personController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{personController.items.rowCount > 0}">
+                    <h:outputText value="#{personController.pagination.pageFirstItem + 1}..#{personController.pagination.pageLastItem + 1}/#{personController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{personController.previous}" value="#{bundle.Previous} #{personController.pagination.pageSize}" rendered="#{personController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{personController.next}" value="#{bundle.Next} #{personController.pagination.pageSize}" rendered="#{personController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{personController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonTitle_idperson}"/>
@@ -94,18 +94,24 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPersonTitle_city}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.city}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{personBean.prepareView}" value="#{bundle.ListPersonViewLink}"/>
+                            <h:commandLink action="#{personController.prepareView}" value="#{bundle.ListPersonViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{personBean.prepareEdit}" value="#{bundle.ListPersonEditLink}"/>
+                            <h:commandLink action="#{personController.prepareEdit}" value="#{bundle.ListPersonEditLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{personBean.destroy}" value="#{bundle.ListPersonDestroyLink}"/>
+                            <h:commandLink action="#{personController.destroy}" value="#{bundle.ListPersonDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
                 <br />
-                <h:commandLink action="#{personBean.prepareCreate}" value="#{bundle.ListPersonCreateLink}"/>
+                <h:commandLink action="#{personController.prepareCreate}" value="#{bundle.ListPersonCreateLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListPersonIndexLink}"/>

@@ -16,23 +16,23 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateBenefitLabel_idbenefit}" for="idbenefit" />
-                    <h:inputText id="idbenefit" value="#{benefitBean.selected.idbenefit}" title="#{bundle.CreateBenefitTitle_idbenefit}" required="true" requiredMessage="#{bundle.CreateBenefitRequiredMessage_idbenefit}"/>
+                    <h:inputText id="idbenefit" value="#{benefitController.selected.idbenefit}" title="#{bundle.CreateBenefitTitle_idbenefit}" required="true" requiredMessage="#{bundle.CreateBenefitRequiredMessage_idbenefit}"/>
                     <h:outputLabel value="#{bundle.CreateBenefitLabel_benefitdescription}" for="benefitdescription" />
-                    <h:inputTextarea rows="4" cols="30" id="benefitdescription" value="#{benefitBean.selected.benefitdescription}" title="#{bundle.CreateBenefitTitle_benefitdescription}" />
+                    <h:inputTextarea rows="4" cols="30" id="benefitdescription" value="#{benefitController.selected.benefitdescription}" title="#{bundle.CreateBenefitTitle_benefitdescription}" />
                     <h:outputLabel value="#{bundle.CreateBenefitLabel_benefittype}" for="benefittype" />
-                    <h:inputText id="benefittype" value="#{benefitBean.selected.benefittype}" title="#{bundle.CreateBenefitTitle_benefittype}" />
+                    <h:inputText id="benefittype" value="#{benefitController.selected.benefittype}" title="#{bundle.CreateBenefitTitle_benefittype}" />
                     <h:outputLabel value="#{bundle.CreateBenefitLabel_benefitvalue}" for="benefitvalue" />
-                    <h:inputText id="benefitvalue" value="#{benefitBean.selected.benefitvalue}" title="#{bundle.CreateBenefitTitle_benefitvalue}" />
+                    <h:inputText id="benefitvalue" value="#{benefitController.selected.benefitvalue}" title="#{bundle.CreateBenefitTitle_benefitvalue}" />
                     <h:outputLabel value="#{bundle.CreateBenefitLabel_idhome}" for="idhome" />
-                    <h:selectOneMenu id="idhome" value="#{benefitBean.selected.idhome}" title="#{bundle.CreateBenefitTitle_idhome}" >
+                    <h:selectOneMenu id="idhome" value="#{benefitController.selected.idhome}" title="#{bundle.CreateBenefitTitle_idhome}" >
                         <f:selectItems value="#{homeController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{benefitBean.create}" value="#{bundle.CreateBenefitSaveLink}" />
+                <h:commandLink action="#{benefitController.create}" value="#{bundle.CreateBenefitSaveLink}" />
                 <br />
                 <br />
-                <h:commandLink action="#{benefitBean.prepareList}" value="#{bundle.CreateBenefitShowAllLink}" immediate="true"/>
+                <h:commandLink action="#{benefitController.prepareList}" value="#{bundle.CreateBenefitShowAllLink}" immediate="true"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.CreateBenefitIndexLink}"/>
